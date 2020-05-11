@@ -1,4 +1,4 @@
-#Pop Up Extension For Opencart 3.X
+# Pop Up Extension For Opencart 3.X
 
 If you don't know your Opencart version, open `index.php` and look for `VERSION` definition.
 
