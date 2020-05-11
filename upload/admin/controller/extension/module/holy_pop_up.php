@@ -4,7 +4,7 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 	private $error = array();
 	
 	const DEFAULT_MODULE_SETTINGS = [
-		'name' => 'Pop Up Name',
+		'name' => 'Pop Up',
 		'image' => 'http://www.example.com/example-image.jpg',
 		'url' => 'http://www.example.com/',
 		'bg_color' => '#F50203',
