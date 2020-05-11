@@ -2,6 +2,7 @@
 
 If you don't know your Opencart version, open `index.php` and look for `VERSION` definition.
 
-1. Upload files from `upload` to your ROOT of Opencart 3
-2. Navigate to Extension -> Modules -> install 'Holy Pop Up' module
-3. Go to Design -> Layout -> Home (or what you want) -> Edit -> Chose (from anywhere) your Pop Up -> Save Form
+1. Upload files from `upload` to your ROOT of Opencart 3.X.
+2. Navigate to Extension -> Modules -> install 'Holy Pop Up' module.
+3. Modify Pop Up settings for your prefer -> Safe Form.
+4. Go to Design -> Layout -> Home (or what page you want) -> Edit -> Chose (from anywhere) your Pop Up -> Save Form.
