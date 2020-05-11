@@ -5,8 +5,8 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 	
 	const DEFAULT_MODULE_SETTINGS = [
 		'name' => 'Pop Up Name',
-		'image' => 'https://www.zuberlezzetler.com/media/banner/200508082521_Kampanya.jpg',
-		'url' => 'https://www.zuberlezzetler.com/',
+		'image' => 'http://www.example.com/example-image.jpg',
+		'url' => 'http://www.example.com/',
 		'bg_color' => '#F50203',
 		'padding' => '5px',
 		'status' => 1
