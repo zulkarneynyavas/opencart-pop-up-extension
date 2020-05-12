@@ -4,11 +4,12 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 	private $error = array();
 	
 	const DEFAULT_MODULE_SETTINGS = [
-		'name' => 'Pop Up',
+		'name' => 'Holy Pop Up',
 		'image' => 'http://www.example.com/example-image.jpg',
 		'url' => 'http://www.example.com/',
 		'bg_color' => '#F50203',
 		'padding' => '5px',
+		'token' => '',
 		'status' => 1
 	];
 
@@ -22,13 +23,29 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 		}
 	}
 
+	public function generateRandomString($length = 16) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
+
 	protected function configure($module_id) {
+
 		$this->load->model('setting/module');
 		$this->load->language('extension/module/holy_pop_up');
 		
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validate()) {
+
+			if ($this->request->post['token'] == '') {
+				$this->request->post['token'] = $this->generateRandomString();
+			}
+			
 			$this->model_setting_module->editModule($this->request->get['module_id'], $this->request->post);
 			
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -86,6 +103,12 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 		} else {
 			$data['padding'] = $module_setting['padding'];
 		}
+
+		if (isset($this->request->post['token'])) {
+			$data['token'] = $this->request->post['token'];
+		} else {
+			$data['token'] = $module_setting['token'];
+		}
 		
 		if (isset($this->request->post['status'])) {
 			$data['status'] = $this->request->post['status'];
@@ -131,6 +154,8 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 		if (!utf8_strlen($this->request->post['padding'])) {
 			$this->error['padding'] = true;
 		}
+
+
 		
 		return empty($this->error);
 	}
