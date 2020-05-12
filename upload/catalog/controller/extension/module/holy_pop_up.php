@@ -13,6 +13,7 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 			$data['url'] = $setting['url'];
 			$data['bg_color'] = $setting['bg_color'];
 			$data['padding'] = $setting['padding'];
+			$data['token'] = $setting['token'];
 
 			return $this->load->view('extension/module/holy_pop_up', $data);
 		}
