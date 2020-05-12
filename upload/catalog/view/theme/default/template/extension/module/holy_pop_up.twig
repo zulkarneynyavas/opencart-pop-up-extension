@@ -63,12 +63,10 @@
     </div>
 </div>
 
-
-
 <script>
     window.onload = function() {
         if (typeof(Storage) !== "undefined") {
-            if ( ! localStorage.getItem('PopUp') ) {
+            if ( ! localStorage.getItem('{{token}}') ) {
                 document.querySelector('.pop-up').style.display = 'block';
                 document.querySelector('.pop-up-outer').style.display = 'block';
                 document.querySelector('body').style.overflow = 'hidden';
@@ -81,7 +79,7 @@
 		}
 	}
     function SetPopUp() {
-        localStorage.setItem('PopUp', Date.now());
+        localStorage.setItem('{{token}}', Date.now());
         document.querySelector('.pop-up').style.display = 'none';
         document.querySelector('.pop-up-outer').style.display = 'none';
         document.querySelector('body').style.overflow = 'auto';
