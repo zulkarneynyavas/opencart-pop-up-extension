@@ -5,15 +5,20 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 	
 	const DEFAULT_MODULE_SETTINGS = [
 		'name' => 'Holy Pop Up',
-		'image' => 'http://www.example.com/example-image.jpg',
+		'image' => '',
 		'url' => 'http://www.example.com/',
 		'bg_color' => '#F50203',
 		'padding' => '5px',
 		'token' => '',
+		'date_start' => '',
+		'date_end' => '',
 		'status' => 1
 	];
 
-	public function index() {		
+	public function index() {
+
+
+		
 		if (isset($this->request->get['module_id'])) {
 			$this->configure($this->request->get['module_id']);
 		} else {
@@ -45,6 +50,18 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 			if ($this->request->post['token'] == '') {
 				$this->request->post['token'] = $this->generateRandomString();
 			}
+
+			if ($this->request->post['date_start'] == '') {
+				$this->request->post['date_start'] = '0000-00-00';
+			}
+
+			if ($this->request->post['date_end'] == '') {
+				$this->request->post['date_end'] = '0000-00-00';
+			}
+
+			if ($this->request->post['image']) {
+				$this->request->post['image'] = 'image/' . $this->request->post['image'];
+			} 
 			
 			$this->model_setting_module->editModule($this->request->get['module_id'], $this->request->post);
 			
@@ -109,12 +126,40 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 		} else {
 			$data['token'] = $module_setting['token'];
 		}
+
+		if (isset($this->request->post['date_start'])) {
+			$data['date_start'] = $this->request->post['date_start'];
+		} else {
+			$data['date_start'] = $module_setting['date_start'];
+		}
+
+		if (isset($this->request->post['date_end'])) {
+			$data['date_end'] = $this->request->post['date_end'];
+		} else {
+			$data['date_end'] = $module_setting['date_end'];
+		}
 		
 		if (isset($this->request->post['status'])) {
 			$data['status'] = $this->request->post['status'];
 		} else {
 			$data['status'] = $module_setting['status'];
-		} 
+		}
+
+
+
+		$this->load->model('tool/image');
+
+		if (file_exists(DIR_IMAGE . $module_setting['image'])) {
+			$data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+			$data['image'] = '';
+		} else {
+			
+			$data['thumb'] = HTTP_CATALOG . $module_setting['image'];
+			$data['image'] = DIR_IMAGE . $module_setting['image'];
+		}
+
+
+
 		
 		$data['action']['cancel'] = $this->url->link('marketplace/extension', 'user_token='.$this->session->data['user_token'].'&type=module');
 		$data['action']['save'] = "";
@@ -154,8 +199,6 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 		if (!utf8_strlen($this->request->post['padding'])) {
 			$this->error['padding'] = true;
 		}
-
-
 		
 		return empty($this->error);
 	}
