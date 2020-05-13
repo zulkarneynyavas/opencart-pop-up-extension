@@ -12,7 +12,7 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 
 				$data = array();
 				
-				$data['image'] = $setting['image'];
+				$data['image'] = 'image/' . $setting['image'];
 				$data['url'] = $setting['url'];
 				$data['bg_color'] = $setting['bg_color'];
 				$data['padding'] = $setting['padding'];
