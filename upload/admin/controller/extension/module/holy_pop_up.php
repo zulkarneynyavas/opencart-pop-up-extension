@@ -60,7 +60,7 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 			}
 
 			if ($this->request->post['image']) {
-				$this->request->post['image'] = 'image/' . $this->request->post['image'];
+				$this->request->post['image'] = $this->request->post['image'];
 			} 
 			
 			$this->model_setting_module->editModule($this->request->get['module_id'], $this->request->post);
@@ -149,13 +149,13 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 
 		$this->load->model('tool/image');
 
-		if (file_exists(DIR_IMAGE . $module_setting['image'])) {
-			$data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
-			$data['image'] = '';
+		if (is_file(DIR_IMAGE . $module_setting['image'])) {
+			$data['thumb'] = $this->model_tool_image->resize($module_setting['image'], 100, 100);
+			$data['image'] = $module_setting['image'];
 		} else {
 			
-			$data['thumb'] = HTTP_CATALOG . $module_setting['image'];
-			$data['image'] = DIR_IMAGE . $module_setting['image'];
+			$data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+			$data['image'] = $module_setting['image'];
 		}
 
 
