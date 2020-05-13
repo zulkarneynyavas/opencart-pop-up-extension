@@ -39,12 +39,12 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="input-message">{{ entry_image }}</label>
+						<label class="col-sm-2 control-label">{{ entry_image }}</label>
 						<div class="col-sm-10">
-							<input type="text" name="image" value="{{ image }}" placeholder="{{ placeholder_image }}" id="input-message" class="form-control" />
-							{% if error.image  %}
-							<div class="text-danger">{{ error_image }}</div>
-							{% endif %}
+							<a href="" id="thumb-image" data-toggle="image" class="img-thumbnail">
+								<img src="{{ thumb }}" width="100" />
+							</a>
+							<input type="hidden" name="image" value="{{ image }}" id="input-image" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -54,6 +54,27 @@
 							{% if error.url %}
 							<div class="text-danger">{{ error_url }}</div>
 							{% endif %}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">{{ entry_date_duration }}</label>
+						<div class="col-sm-10">
+							<div class="col-sm-4" style="padding-left:0">
+								<div class="input-group date">
+									<input type="text" id="date-start" name="date_start" value="{{ date_start }}" data-date-format="YYYY-MM-DD" class="form-control" data-toggle="tooltip" title="Start date">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+									</span>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="input-group date">
+									<input type="text" id="date-end" name="date_end" value="{{ date_end }}" data-date-format="YYYY-MM-DD" class="form-control"  data-toggle="tooltip" title="End date">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -75,6 +96,15 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-token">{{ entry_token }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="token" value="{{ token }}" placeholder="{{ placeholder_token }}" id="input-token" class="form-control" readonly />
+							{% if error.token %}
+							<div class="text-danger">{{ error_token }}</div>
+							{% endif %}
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
 						<div class="col-sm-10">
 							<select name="status" id="input-status" class="form-control">
@@ -88,18 +118,14 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label" for="input-token">{{ entry_token }}</label>
-						<div class="col-sm-10">
-							<input type="text" name="token" value="{{ token }}" placeholder="{{ placeholder_token }}" id="input-token" class="form-control" readonly />
-							{% if error.token %}
-							<div class="text-danger">{{ error_token }}</div>
-							{% endif %}
-						</div>
-					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	$(function () {
+		$('.date').datetimepicker();
+	});
+</script>
 {{ footer }}
