@@ -1,10 +1,10 @@
 <?php
-class ControllerExtensionModuleHolyPopUp extends Controller {
+class ControllerExtensionModulePopUp extends Controller {
 
 	private $error = array();
 	
 	const DEFAULT_MODULE_SETTINGS = [
-		'name' => 'Holy Pop Up',
+		'name' => 'Pop-Up',
 		'image' => '',
 		'url' => 'http://www.example.com/',
 		'bg_color' => '#F50203',
@@ -16,15 +16,12 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 	];
 
 	public function index() {
-
-
-		
 		if (isset($this->request->get['module_id'])) {
 			$this->configure($this->request->get['module_id']);
 		} else {
 			$this->load->model('setting/module');
-			$this->model_setting_module->addModule('holy_pop_up', self::DEFAULT_MODULE_SETTINGS);
-			$this->response->redirect($this->url->link('extension/module/holy_pop_up','&user_token='.$this->session->data['user_token'].'&module_id='.$this->db->getLastId()));
+			$this->model_setting_module->addModule('pop_up', self::DEFAULT_MODULE_SETTINGS);
+			$this->response->redirect($this->url->link('extension/module/pop_up','&user_token='.$this->session->data['user_token'].'&module_id='.$this->db->getLastId()));
 		}
 	}
 
@@ -41,7 +38,7 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 	protected function configure($module_id) {
 
 		$this->load->model('setting/module');
-		$this->load->language('extension/module/holy_pop_up');
+		$this->load->language('extension/module/pop_up');
 		
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -52,11 +49,11 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 			}
 
 			if ($this->request->post['date_start'] == '') {
-				$this->request->post['date_start'] = '0000-00-00';
+				$this->request->post['date_start'] = date('Y-m-d');
 			}
 
 			if ($this->request->post['date_end'] == '') {
-				$this->request->post['date_end'] = '0000-00-00';
+				$this->request->post['date_end'] = date('Y-m-d', strtotime('+7 days'));
 			}
 
 			if ($this->request->post['image']) {
@@ -86,7 +83,7 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('extension/module/holy_pop_up', 'user_token=' . $this->session->data['user_token'], true)
+			'href' => $this->url->link('extension/module/pop_up', 'user_token=' . $this->session->data['user_token'], true)
 		);
 
 		$module_setting = $this->model_setting_module->getModule($module_id);
@@ -170,12 +167,12 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 		
-		$this->response->setOutput($this->load->view('extension/module/holy_pop_up', $data));
+		$this->response->setOutput($this->load->view('extension/module/pop_up', $data));
 	}
 
 	public function validate() {
 
-		if (!$this->user->hasPermission('modify', 'extension/module/holy_pop_up')) {
+		if (!$this->user->hasPermission('modify', 'extension/module/pop_up')) {
 			$this->error['permission'] = true;
 			return false;
 		}
@@ -207,12 +204,12 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 		$this->load->model('setting/setting');
 		$this->load->model('setting/module');
 
-		$this->model_setting_setting->editSetting('module_holy_pop_up', ['module_holy_pop_up_status'=>1]);
-		$this->model_setting_module->addModule('holy_pop_up', self::DEFAULT_MODULE_SETTINGS); 
+		$this->model_setting_setting->editSetting('module_pop_up', ['module_pop_up_status'=>1]);
+		$this->model_setting_module->addModule('pop_up', self::DEFAULT_MODULE_SETTINGS); 
 	}
 	
 	public function uninstall() {
 		$this->load->model('setting/setting');
-		$this->model_setting_setting->deleteSetting('module_holy_pop_up');
+		$this->model_setting_setting->deleteSetting('module_pop_up');
 	}
 }

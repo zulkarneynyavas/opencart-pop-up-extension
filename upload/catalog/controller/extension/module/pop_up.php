@@ -1,9 +1,9 @@
 <?php
-class ControllerExtensionModuleHolyPopUp extends Controller {
+class ControllerExtensionModulePopUp extends Controller {
 
 	public function index($setting = null) {
 
-		$this->load->language('extension/module/holy_pop_up');
+		$this->load->language('extension/module/pop_up');
 
 		if ($setting && $setting['status']) {
 
@@ -18,7 +18,7 @@ class ControllerExtensionModuleHolyPopUp extends Controller {
 				$data['padding'] = $setting['padding'];
 				$data['token'] = $setting['token'];
 
-				return $this->load->view('extension/module/holy_pop_up', $data);
+				return $this->load->view('extension/module/pop_up', $data);
 
 			}
 		}
